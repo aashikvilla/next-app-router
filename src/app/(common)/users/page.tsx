@@ -1,19 +1,8 @@
-async function getData() {
-  const res = await fetch("https://fakestoreapi.com/users");
+import { getUsers } from "@/app/apiService/ApiCalls";
+import { User } from "@/app/types/User";
 
-  if (!res.ok) {
-    // This will activate the closest `error.js` Error Boundary
-    throw new Error("Failed to fetch data");
-  }
-  //console.log("data" , res.json());
-
-  return res.json();
-}
-
-type Props = {};
-
-async function Users({}: Props) {
-  const users = await getData();
+async function Users() {
+  const users:User[] = await getUsers();
   console.log(users);
   return (
     <div>

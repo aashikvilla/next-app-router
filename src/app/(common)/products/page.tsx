@@ -1,24 +1,13 @@
-async function getData() {
-  const res = await fetch("https://fakestoreapi.com/products/categories");
-  if (!res.ok) {
-    throw new Error("Failed to fetch data");
-  }
-  return res.json();
-}
+import { getProductCategories } from "@/app/apiService/ApiCalls";
+import ProductCategories from "./components/ProductCategories";
+import ProductList from "./components/ProductList";
 
-type Props = {};
-
-export default async function Products({}: Props) {
-  const data:String[] = await getData();
-  console.log(data);
+export default async function Products() {
+ 
   return (
-    <div>
-      <h2>Products</h2>
-      { data.length >0 &&
-        data.map((c,ind)=>{
-          return <p key={ind}>{c}</p>
-        })
-      }
+    <div className="">
+     <ProductCategories/>
+     <ProductList/>
     </div>
   );
 }

@@ -1,20 +1,8 @@
-async function getUsers() {
-    
-    const res = await fetch("https://fakestoreapi.com/users", {
-      cache: "no-store",
-    });
-  
-    if (!res.ok) {    
-      throw new Error("Failed to fetch data");
-    }
-   
-    await new Promise((resolve) => setTimeout(resolve, 2000));
-    return res.json();    
-  }
-type Props = {}
+import { getDelayedUsers } from "../apiService/ApiCalls";
 
-async function SlowUers({}: Props) {
-    const users = await getUsers();
+
+async function SlowUers() {
+  const users = await getDelayedUsers();
   return (
     <div className="p-10">
     <div>Users</div>

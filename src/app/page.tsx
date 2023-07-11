@@ -3,6 +3,7 @@ import LoadingUsers from "./(common)/users/loading";
 import Loading from "./(common)/products/loading";
 import SlowUers from "./components/SlowUers";
 import Products from "./(common)/products/page";
+import ProductCategories from "./(common)/products/components/ProductCategories";
 
 export default function Home() {
   return (
@@ -17,7 +18,7 @@ export default function Home() {
         </Suspense>
         <Suspense fallback={<Loading />}>
           {/* Should display products when loaded , should not wait till users are displayed  */}
-         <Products />
+         <ProductCategories />
         </Suspense>
       </div>
     </div>
