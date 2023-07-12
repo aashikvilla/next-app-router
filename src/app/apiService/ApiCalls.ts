@@ -4,7 +4,7 @@ import { ApiRouteConstants } from "./ApiRouteConstants";
 import { fetchData } from "./ApiService";
 
 export async function getDelayedUsers() {
-  await new Promise((resolve) => setTimeout(resolve, 2000));
+  await new Promise((resolve) => setTimeout(resolve, 4000));
   return fetchData<User[]>(ApiRouteConstants.Users.GetAll); 
 }
 
@@ -28,8 +28,8 @@ export async function getUsers() {
     return fetchData<Product[]>(ApiRouteConstants.Products.GetAllByLimit(6));   
   }
   
-  export async function getProductById(category:string) {
-    return fetchData<Product[]>(ApiRouteConstants.Products.GetByCategory(category));   
+  export async function getProductById(id:Number) {
+    return fetchData<Product>(ApiRouteConstants.Products.GetById(id));   
    
   }
   

@@ -1,18 +1,16 @@
-import React from 'react'
-
 type Props = {
-    name:String
-}
+  name: String;
+};
 
-function ProductCategoryItem({name}: Props) {
+function ProductCategoryItem({ name }: Props) {
   return (
     <button
-    //   onClick={onClick}
+      //   onClick={onClick}
       className="bg-blue-200 hover:bg-blue-300 text-blue-700 rounded-md px-4 py-2"
     >
       {name}
     </button>
-  )
+  );
 }
 
-export default ProductCategoryItem
+export default ProductCategoryItem;

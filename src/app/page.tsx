@@ -1,9 +1,7 @@
 import { Suspense } from "react";
 import LoadingUsers from "./(common)/users/loading";
-import Loading from "./(common)/products/loading";
 import SlowUers from "./components/SlowUers";
-import Products from "./(common)/products/page";
-import ProductCategories from "./(common)/products/components/ProductCategories";
+import ProductCategories from "@/app/(common)/products/(productsListing)/@productCategories/page";
 
 export default function Home() {
   return (
@@ -16,7 +14,7 @@ export default function Home() {
           {/* Will take longer time,should display LoadingUsers till users are loaded */}
           <SlowUers/>         
         </Suspense>
-        <Suspense fallback={<Loading />}>
+        <Suspense fallback={<div>Loading Products</div>}>
           {/* Should display products when loaded , should not wait till users are displayed  */}
          <ProductCategories />
         </Suspense>
