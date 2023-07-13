@@ -3,8 +3,6 @@ import { Product } from "@/app/types/Product";
 import ProductCard from "@/app/(common)/products/components/ProductCard";
 
 export default async function ProductList() {
-  //delay render to check the loading state
-  await new Promise((resolve) => setTimeout(resolve, 4000));
   const products: Product[] = await getLimitedProducts();
 
   return (

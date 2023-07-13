@@ -2,8 +2,6 @@ import { getProductCategories } from "@/app/apiService/ApiCalls";
 import ProductCategoryItem from "@/app/(common)/products/components/ProductCategoryItem";
 
 export default async function ProductCategories() {
-  //delay render to check the loading state
-  await new Promise((resolve) => setTimeout(resolve, 2000));
   const categories: String[] = await getProductCategories();
 
   return (

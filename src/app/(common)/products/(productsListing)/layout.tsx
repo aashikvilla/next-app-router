@@ -1,9 +1,9 @@
-type Props={
+type Props = {
   children: React.ReactNode;
   productList: React.ReactNode;
   productCategories: React.ReactNode;
-  productDescription: React.ReactNode
-}
+  productDescription: React.ReactNode;
+};
 
 export default function Layout(props: Props) {
   return (
@@ -12,7 +12,6 @@ export default function Layout(props: Props) {
       {props.productCategories}
       {props.productList}
       {props.productDescription}
-
     </>
   );
 }

@@ -1,8 +1,5 @@
-
 function Default() {
-  return (
-    <div>default</div>
-  )
+  return <></>;
 }
 
-export default Default
+export default Default;
