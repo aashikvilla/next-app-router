@@ -1,15 +1,13 @@
-import { updateURLParameters } from "@/app/utils/HelperFunctions";
 import Link from "next/link";
 import React from "react";
 
 type Props = {
   url: string;
-  pageNumber: number;
   disabled: boolean;
   label: string;
 };
 
-function PageNavigationItem({ url, pageNumber, disabled, label }: Props) {
+function PageNavigationItem({ url, disabled, label }: Props) {
   return (
     <Link
       className={`py-1 px-3 text-small font-medium rounded-lg shadow-md text-white ${
