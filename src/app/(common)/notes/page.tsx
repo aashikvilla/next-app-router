@@ -1,4 +1,7 @@
 import { getNotesForUser } from "@/app/apiService/ApiCalls";
+import PageNavigationItem from "@/app/components/table/PageNavigationItem";
+import Search from "@/app/components/table/Search";
+import { updateURLParameters } from "@/app/utils/HelperFunctions";
 import Link from "next/link";
 
 type Props = {
@@ -16,11 +19,20 @@ async function Notes({ searchParams }: Props) {
       ? Number(searchParams.pageSize)
       : 5;
 
-  var { data, count } = await getNotesForUser(pageNumber, pageSize);
+  const searchTerm =
+    typeof searchParams.pageSize === "string"
+      ? String(searchParams.searchTerm)
+      : "";
+
+  var { data, count } = await getNotesForUser(pageNumber, pageSize, searchTerm);
+
+  const url = `notes?pageSize=${pageSize}&pageNumber=${pageNumber}&searchTerm=${searchTerm}`;
 
   return (
     <div>
       <h2 className="mb-4 text-blue-500 font-semibold text">Notes</h2>
+
+      <Search url={url} defaultSearchTerm={searchTerm} />
 
       <div className="flex flex-col">
         <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
@@ -89,29 +101,20 @@ async function Notes({ searchParams }: Props) {
       </div>
 
       <div className="mt-5 flex justify-end">
-        <Link
-          className={`py-1 px-3 text-small font-medium rounded-lg shadow-md text-white ${
-            pageNumber == 1
-              ? "bg-blue-300 cursor-not-allowed pointer-events-none"
-              : "bg-blue-500"
-          }`}
-          aria-disabled={pageNumber == 1}
-          href={`notes?pageSize=${pageSize}&pageNumber=${pageNumber - 1}`}
-        >
-          &laquo;
-        </Link>
+        <PageNavigationItem
+          url={updateURLParameters(url, "pageNumber", pageNumber - 1)}
+          pageNumber={pageNumber}
+          disabled={pageNumber === 1}
+          label="&laquo;"
+        />
+
         <p className="text-lg mx-2 mt-1 text-blue-500 ">{pageNumber}</p>
-        <Link
-          className={`py-1 px-3 text-medium font-medium rounded-lg shadow-md text-white ${
-            pageNumber * pageSize >= count
-              ? "bg-blue-300 cursor-not-allowed pointer-events-none"
-              : "bg-blue-500"
-          } mr-1`}
-          aria-disabled={pageNumber * pageSize <= count}
-          href={`notes?pageSize=${pageSize}&pageNumber=${pageNumber + 1}`}
-        >
-          &raquo;
-        </Link>
+        <PageNavigationItem
+          url={updateURLParameters(url, "pageNumber", pageNumber + 1)}
+          pageNumber={pageNumber}
+          disabled={pageNumber * pageSize >= count}
+          label="&raquo;"
+        />
       </div>
     </div>
   );
