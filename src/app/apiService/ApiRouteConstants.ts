@@ -20,5 +20,7 @@ export const ApiRouteConstants = {
       searchTerm: String
     ) =>
       `${NOTESAPP_URL}/Note/GetNotesForUserWithPagination/${userId}?pageSize=${pageSize}&pageNumber=${pageNumber}&searchTerm=${searchTerm}`,
+    GetAllWithParams: (userId: string, searchparams: string) =>
+      `${NOTESAPP_URL}/Note/GetNotesForUserWithPagination/${userId}?${searchparams}`,
   },
 };

@@ -10,7 +10,7 @@ type Props = {
 };
 
 function Pagination({ url, pageNumber, pageSize, totalCount }: Props) {
-  const firstRecordIndex = (pageNumber - 1) * pageSize + 1;
+  const firstRecordIndex = totalCount > 0 ? (pageNumber - 1) * pageSize + 1 : 0;
   const lastRecordIndex = Math.min(pageNumber * pageSize, totalCount);
 
   return (
@@ -21,7 +21,7 @@ function Pagination({ url, pageNumber, pageSize, totalCount }: Props) {
 
       <div className="flex">
         <PageNavigationItem
-          url={updateURLParameters(url, "pageNumber", pageNumber - 1)}
+          url={updateURLParameters(url, "PageNumber", pageNumber - 1)}
           disabled={pageNumber === 1}
           label="&laquo;"
         />
@@ -29,7 +29,7 @@ function Pagination({ url, pageNumber, pageSize, totalCount }: Props) {
         <p className="text-lg mx-2 mt-1 text-blue-500">{pageNumber}</p>
 
         <PageNavigationItem
-          url={updateURLParameters(url, "pageNumber", pageNumber + 1)}
+          url={updateURLParameters(url, "PageNumber", pageNumber + 1)}
           disabled={pageNumber * pageSize >= totalCount}
           label="&raquo;"
         />

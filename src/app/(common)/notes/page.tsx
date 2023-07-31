@@ -1,6 +1,10 @@
 import { getNotesForUser } from "@/app/apiService/ApiCalls";
 import TableContainer from "@/app/components/table/TableContainer";
 import { Column } from "@/app/types/Table";
+import {
+  generateSearchURL,
+  getQueryParameters,
+} from "@/app/utils/HelperFunctions";
 
 const columns: Column[] = [
   {
@@ -30,24 +34,10 @@ type Props = {
 };
 
 async function Notes({ searchParams }: Props) {
-  console.log("searchparams", searchParams);
-  const pageNumber =
-    typeof searchParams.pageNumber === "string"
-      ? Number(searchParams.pageNumber)
-      : 1;
-  const pageSize =
-    typeof searchParams.pageSize === "string"
-      ? Number(searchParams.pageSize)
-      : 5;
+  const searchParameters = getQueryParameters(searchParams);
+  const url = generateSearchURL(searchParameters);
 
-  const searchTerm =
-    typeof searchParams.pageSize === "string"
-      ? String(searchParams.searchTerm)
-      : "";
-
-  var { data, count } = await getNotesForUser(pageNumber, pageSize, searchTerm);
-
-  const url = `notes?pageSize=${pageSize}&pageNumber=${pageNumber}&searchTerm=${searchTerm}`;
+  var { data, count } = await getNotesForUser(url);
 
   return (
     <div>
@@ -57,11 +47,9 @@ async function Notes({ searchParams }: Props) {
         <TableContainer
           columns={columns}
           data={data}
-          searchTerm={searchTerm}
-          pageNumber={pageNumber}
-          pageSize={pageSize}
-          url={url}
+          url={"notes?" + url}
           count={count}
+          searchParameters={searchParameters}
         />
       </div>
     </div>

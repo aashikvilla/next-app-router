@@ -6,35 +6,36 @@ import { Column, Data } from "@/app/types/Table";
 
 type Props = {
   url: string;
-  pageNumber: number;
-  pageSize: number;
-  searchTerm: string;
   columns: Column[];
   data: Data[];
   count: number;
+  searchParameters: DataQueryParameters;
 };
 
 function TableContainer({
   url,
-  pageNumber,
-  pageSize,
-  searchTerm,
   columns,
   data,
   count,
+  searchParameters,
 }: Props) {
   return (
     <>
       <Search
-        url={updateURLParameters(url, "pageNumber", 1)}
-        defaultSearchTerm={searchTerm}
+        url={updateURLParameters(url, "PageNumber", 1)}
+        defaultSearchTerm={searchParameters.SearchTerm ?? ""}
       />
 
-      <Table columns={columns} data={data} />
+      <Table
+        columns={columns}
+        data={data}
+        url={url}
+        searchParameters={searchParameters}
+      />
 
       <Pagination
-        pageNumber={pageNumber}
-        pageSize={pageSize}
+        pageNumber={searchParameters.PageNumber}
+        pageSize={searchParameters.PageSize}
         url={url}
         totalCount={count}
       />
