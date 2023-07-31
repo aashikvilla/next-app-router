@@ -3,6 +3,7 @@ export async function fetchData<T>(
   options?: RequestInit
 ): Promise<T> {
   try {
+    console.log("route", route);
     const res = await fetch(route, options);
     if (!res.ok) {
       const errorData = await res.json();
