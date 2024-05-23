@@ -30,16 +30,11 @@ export async function getProductById(id: Number) {
   return fetchData<Product>(ApiRouteConstants.Products.GetById(id));
 }
 
-export async function getNotesForUser(
-  pageNumber: Number,
-  pageSize: Number,
-  searchTerm: String = ""
-) {
+export async function getNotesForUser(searchTerm: string = "") {
+  //await new Promise((resolve) => setTimeout(resolve, 4000));
   return fetchData<PaginationResult<Note>>(
-    ApiRouteConstants.Notes.GetAll(
+    ApiRouteConstants.Notes.GetAllWithParams(
       "64b702c4576ee1a2851b73a9",
-      pageNumber,
-      pageSize,
       searchTerm
     )
   );

@@ -1,11 +1,14 @@
 import { Column, Data } from "@/app/types/Table";
+import TableHeader from "./TableHeader";
 
 type Props = {
+  searchParameters: DataQueryParameters;
   columns: Column[];
   data: Data[];
+  url: string;
 };
 
-const Table = ({ columns, data }: Props) => {
+const Table = ({ columns, data, url, searchParameters }: Props) => {
   return (
     <>
       <div className="flex flex-col">
@@ -13,19 +16,11 @@ const Table = ({ columns, data }: Props) => {
           <div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
             <div className="shadow overflow-hidden border-b border-blue-500 sm:rounded-lg">
               <table className="min-w-full divide-y divide-blue-200">
-                <thead className="bg-blue-500">
-                  <tr>
-                    {columns.map((column, index) => (
-                      <th
-                        key={index}
-                        scope="col"
-                        className="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider"
-                      >
-                        {column.Header}
-                      </th>
-                    ))}
-                  </tr>
-                </thead>
+                <TableHeader
+                  columns={columns}
+                  url={url}
+                  searchParameters={searchParameters}
+                />
                 <tbody className="bg-white divide-y divide-blue-300">
                   {data.map((row, rowIndex) => (
                     <tr key={rowIndex}>
