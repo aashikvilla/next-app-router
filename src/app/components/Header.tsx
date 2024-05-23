@@ -17,6 +17,9 @@ export default function Header({}: Props) {
         <div className="p-5">
           <Link href="/users">Users</Link>
         </div>
+        <div className="p-5">
+          <Link href="/notes">Notes</Link>
+        </div>
       </div>
     </div>
   );

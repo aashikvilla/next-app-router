@@ -1,15 +1,25 @@
-const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
-
 export async function fetchData<T>(
   route: string,
   options?: RequestInit
 ): Promise<T> {
-  const res = await fetch(`${BASE_URL}/${route}`, {
-    ...options,
-  });
-
-  if (!res.ok) {
-    throw new Error("Failed to fetch data");
+  try {
+    console.log("route", route);
+    const res = await fetch(route, options);
+    if (!res.ok) {
+      const errorData = await res.json();
+      throw new Error(
+        `Failed to fetch data. Status: ${res.status} ${
+          res.statusText
+        }. Message: ${JSON.stringify(errorData)}`
+      );
+    }
+    return (await res.json()) as Promise<T>;
+  } catch (error) {
+    if (error instanceof TypeError) {
+      console.error("Network or CORS error: ", error);
+    } else {
+      console.error("API error: ", error);
+    }
+    throw error;
   }
-  return res.json() as Promise<T>;
 }
